@@ -63,18 +63,15 @@ pipeline {
                               doGenerateSubmoduleConfigurations: false, 
                               extensions: [], submoduleCfg: [], 
                               userRemoteConfigs: [[credentialsId: env.GIT_CREDENTIALS_ID, url: 'https://github.com/FelicianoMandjam/AppLivreCorrection.git']]])
-
                 echo 'Tests succeeded, merging dev into main'
-                withCredentials([usernamePassword(credentialsId: env.GIT_CREDENTIALS_ID, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     sh """
                         git config --global user.email "felicianomandja@gmail.com"
                         git config --global user.name "FelicianoMandjam"
                         git checkout main
                         git pull origin main
                         git merge origin/dev
-                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/FelicianoMandjam/AppLivreCorrection.git main
+                        git push https://github.com/FelicianoMandjam/AppLivreCorrection.git main
                     """
-                }
             }
         }
         failure {
