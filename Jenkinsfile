@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         NODE_ENV = 'test'
-        GIT_CREDENTIALS_ID = 'CredentialTokenMerge' // Remplacez par l'ID de vos credentials Jenkins
+        GIT_CREDENTIALS_ID = 'CredentialAtelier' // Remplacez par l'ID de vos credentials Jenkins
     }
     /*triggers {
         cron('H/5 * * * *') // Planification pour exécuter toutes les 5 minutes
@@ -17,7 +17,7 @@ pipeline {
                     checkout([$class: 'GitSCM', branches: [[name: '*/dev']], 
                               doGenerateSubmoduleConfigurations: false, 
                               extensions: [], submoduleCfg: [], 
-                              userRemoteConfigs: [[credentialsId: env.GIT_CREDENTIALS_ID, url: 'https://github.com/ChirazForm2023/AppBibliothequeCICD.git']]])
+                              userRemoteConfigs: [[credentialsId: env.GIT_CREDENTIALS_ID, url: 'https://github.com/FelicianoMandjam/AppLivreCorrection.git']]])
                 }
             }
         }
@@ -27,10 +27,10 @@ pipeline {
                 script {
                     // Install Node.js dependencies for both frontend and backend
                     dir('FrontBibliotheque') {
-                        bat 'npm install'
+                        sh 'npm install'
                     }
                     dir('BackBibliotheque') {
-                        bat 'npm install'
+                        sh 'npm install'
                     }
                 }
             }
@@ -46,7 +46,7 @@ pipeline {
                     }
                     dir('BackBibliotheque') {
                         echo 'sur le back'
-                        bat 'npm test'
+                        sh 'npm test'
                     }
                 }
             }
@@ -62,19 +62,16 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/dev']], 
                               doGenerateSubmoduleConfigurations: false, 
                               extensions: [], submoduleCfg: [], 
-                              userRemoteConfigs: [[credentialsId: env.GIT_CREDENTIALS_ID, url: 'https://github.com/ChirazForm2023/AppBibliothequeCICD.git']]])
-
+                              userRemoteConfigs: [[credentialsId: env.GIT_CREDENTIALS_ID, url: 'https://github.com/FelicianoMandjam/AppLivreCorrection.git']]])
                 echo 'Tests succeeded, merging dev into main'
-                withCredentials([usernamePassword(credentialsId: env.GIT_CREDENTIALS_ID, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                    bat """
-                        git config --global user.email "jenkins@example.com"
-                        git config --global user.name "Jenkins"
+                    sh """
+                        git config --global user.email "felicianomandja@gmail.com"
+                        git config --global user.name "FelicianoMandjam"
                         git checkout main
                         git pull origin main
                         git merge origin/dev
-                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/ChirazForm2023/AppBibliothequeCICD.git main
+                        git push https://github.com/FelicianoMandjam/AppLivreCorrection.git main
                     """
-                }
             }
         }
         failure {
