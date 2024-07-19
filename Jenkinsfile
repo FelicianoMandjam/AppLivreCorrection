@@ -5,9 +5,9 @@ pipeline {
         NODE_ENV = 'test'
         GIT_CREDENTIALS_ID = 'CredentialAtelier' // Remplacez par l'ID de vos credentials Jenkins
     }
-    /*triggers {
+    triggers {
         cron('H/5 * * * *') // Planification pour exécuter toutes les 5 minutes
-    }*/
+    }
 
     stages {
         stage('Checkout') {
