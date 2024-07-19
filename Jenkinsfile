@@ -66,7 +66,7 @@ pipeline {
 
                 echo 'Tests succeeded, merging dev into main'
                 withCredentials([usernamePassword(credentialsId: env.GIT_CREDENTIALS_ID, passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                    bat """
+                    sh """
                         git config --global user.email "felicianomandja@gmail.com"
                         git config --global user.name "FelicianoMandjam"
                         git checkout main
