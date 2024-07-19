@@ -15,7 +15,7 @@ sequelize
   .catch((err) => {
     console.error("Unable to create tables:", err);
   });
-
+console.log("Ca marcheeeeeee")
 app.use(express.json());
 app.use("/", livreRoutes);
 app.use("/", auteurRoutes);
