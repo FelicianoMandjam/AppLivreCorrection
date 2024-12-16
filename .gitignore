@@ -1,3 +1,4 @@
 BackBibliotheque/.env
 BackBibliotheque/node_modules
+BackBibliotheque/tests
 FrontBibliotheque/node_modules
